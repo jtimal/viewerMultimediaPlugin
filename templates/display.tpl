@@ -187,11 +187,24 @@
 				{url page="article" op="download" path=$article->getBestId()|to_array:$galley->getBestGalleyId() inline=true}
 			{/capture}
 		{/if}
+			
+			
+		{if $mimetype|strstr:"audio"}
+            
+			<audio controls="">
+				<source src="{$htmlUrl}" type="{$mimetype}">
+				Your browser does not support the audio tag.
+			</audio>
+        {/if}
 
-		<audio controls="">
-			<source src="{$htmlUrl}" type="audio/mpeg">
-			Your browser does not support the audio tag.
-		</audio>
+		
+		{if $mimetype|strstr:"video"}
+            
+			<video width="500px" height="300px" controls="">
+				<source src="{$htmlUrl}" type="{$mimetype}">
+				Your browser does not support the video tag.
+			</video>
+        {/if}
 
 	</div>
 			</section>

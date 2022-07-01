@@ -79,7 +79,9 @@ class ViewerMultimediaPlugin extends GenericPlugin
         }
 
         $submissionFile = $galley->getFile();
-        if ($submissionFile->getData('mimetype') === 'audio/mpeg') {
+        $mimetype = $submissionFile->getData('mimetype');
+     // init case audio
+        if ( ($mimetype === 'audio/m4a' )||($mimetype === 'audio/wav' )||($mimetype === 'audio/acc' )||($mimetype === 'audio/ogg' )||($mimetype === 'audio/mpeg' )|| ($mimetype === 'video/mp4')) {
             foreach ($article->getData('publications') as $publication) {
                 if ($publication->getId() === $galley->getData('publicationId')) {
                     $galleyPublication = $publication;
@@ -91,13 +93,36 @@ class ViewerMultimediaPlugin extends GenericPlugin
                 'issue' => $issue,
                 'article' => $article,
                 'galley' => $galley,
+                'mimetype' => $mimetype,
                 'isLatestPublication' => $article->getData('currentPublicationId') === $galley->getData('publicationId'),
                 'galleyPublication' => $galleyPublication,
             ]);
             $templateMgr->display($this->getTemplateResource('display.tpl'));
 
             return true;
-        }
+        } /*
+        elseif ($submissionFile->getData('mimetype') === 'video/mp4') {
+            foreach ($article->getData('publications') as $publication) {
+                if ($publication->getId() === $galley->getData('publicationId')) {
+                    $galleyPublication = $publication;
+                    break;
+                }
+            }
+            $templateMgr = TemplateManager::getManager($request);
+            $templateMgr->assign([
+                'issue' => $issue,
+                'article' => $article,
+                'galley' => $galley,
+                'format' => $submissionFile->getData('mimetype'),
+                'isLatestPublication' => $article->getData('currentPublicationId') === $galley->getData('publicationId'),
+                'galleyPublication' => $galleyPublication,
+            ]);
+            $templateMgr->display($this->getTemplateResource('display_video.tpl'));
+
+            return true;
+        } // end case video*/
+
+
 
         return false;
     }
