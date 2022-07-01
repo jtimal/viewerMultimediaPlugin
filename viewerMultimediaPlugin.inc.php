@@ -81,7 +81,7 @@ class ViewerMultimediaPlugin extends GenericPlugin
         $submissionFile = $galley->getFile();
         $mimetype = $submissionFile->getData('mimetype');
      // init case audio
-        if ( ($mimetype === 'audio/m4a' )||($mimetype === 'audio/wav' )||($mimetype === 'audio/acc' )||($mimetype === 'audio/ogg' )||($mimetype === 'audio/mpeg' )|| ($mimetype === 'video/mp4')) {
+        if ( ($mimetype === 'video/webm' )||($mimetype === 'audio/ogg' )||($mimetype === 'audio/mpeg' )|| ($mimetype === 'video/mp4')|| ($mimetype === 'video/ogg')) {
             foreach ($article->getData('publications') as $publication) {
                 if ($publication->getId() === $galley->getData('publicationId')) {
                     $galleyPublication = $publication;
